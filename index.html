@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управління завданнями</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+        .sidebar {
+            width: 25%;
+            background: #34495e;
+            padding: 10px;
+            overflow-y: auto;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: #1abc9c;
+            border: none;
+            border-radius: 15px;
+            color: #fff;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #2c3e50;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 20px;
+            background: #2980b9;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #3498db;
+        }
+        #task-input {
+            margin-top: 20px;
+            padding: 10px;
+            width: 80%;
+            border: none;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Список завдань</h3>
+        <div id="task-list">
+            <!-- Завдання будуть додаватися сюди -->
+        </div>
+    </div>
+    <div class="content">
+        <h1>Управління завданнями</h1>
+        <input type="text" id="task-input" placeholder="Введіть нове завдання">
+        <button onclick="addTask()">Додати завдання</button>
+        <button onclick="markTaskDone()">Завдання виконано</button>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const taskList = document.getElementById('task-list');
+            if (taskInput.value.trim()) {
+                const taskItem = document.createElement('div');
+                taskItem.className = 'task-item';
+                taskItem.innerHTML = `<span>${taskInput.value}</span><button onclick="this.parentElement.remove()">Видалити</button>`;
+                taskList.appendChild(taskItem);
+                taskInput.value = '';
+            } else {
+                alert('Введіть текст завдання!');
+            }
+        }
+
+        function markTaskDone() {
+            const tasks = document.querySelectorAll('#task-list .task-item');
+            if (tasks.length > 0) {
+                tasks[0].style.textDecoration = 'line-through';
+                tasks[0].style.color = '#95a5a6';
+            } else {
+                alert('Немає доступних завдань!');
+            }
+        }
+    </script>
+</body>
+</html>
